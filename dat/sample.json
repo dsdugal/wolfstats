@@ -14,7 +14,7 @@
 	},
 	"round_info": [
         {
-            "clock_time": 600,
+            "time_limit": 600,
 			"events": [
                 {
 					"time": 1606880055,
@@ -161,7 +161,7 @@
 			}
 		},
 		{
-            "clock_time": 570,
+            "time_limit": 570,
 			"events": [],
 			"players": {
 				"allies": {},
