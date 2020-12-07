@@ -1,7 +1,7 @@
 {
 	"schema": 0.1,
-	"match_info": {
-		"match_id": 1606881255,
+	"summary": {
+		"match_id": 1606881280,
 		"start_time": 1606880055,
 		"end_time": 1606881255,
 		"host_address": [104, 153, 105, 209],
@@ -12,72 +12,77 @@
 		"mapname": "mp_beach",
 		"winner": "allies"
 	},
-	"round_info": [
+	"rounds": [
         {
             "time_limit": 600,
 			"events": [
                 {
 					"time": 1606880055,
-					"class": "server",
+					"group": "server",
 					"label": "round_start"
 				},
 				{
+					"time": 1606880055,
+					"group": "player",
+					"label": "change_class",
+					"agent": "61c82zqc",
+					"class": "medic"
+				},
+				{
 					"time": 1606880175,
-					"class": "server",
+					"group": "server",
 					"label": "pause"
 				},
 				{
 					"time": 1606880205,
-					"class": "server",
+					"group": "server",
 					"label": "unpause"
 				},
 				{
+					"time": 1606880235,
+					"group": "server",
+					"label": "class",
+					"agent": "61c82zqc",
+					"class": "soldier"
+				},
+				{
 					"time": 1606880265,
-					"class": "player",
+					"group": "player",
 					"label": "kill",
 					"agent": "61c82zqc",
 					"other": "64xjnn3c"
 				},
 				{
 					"time": 1606880270,
-					"class": "player",
+					"group": "player",
 					"label": "revive",
 					"agent": "61c82zqc",
 					"other": "ecrq9bk0"
 				},
 				{
 					"time": 1606880625,
-					"class": "player",
+					"group": "player",
 					"label": "objective_taken",
 					"agent": "61c82zqc"
 				},
 				{
 					"time": 1606880655,
-					"class": "player",
+					"group": "player",
 					"label": "objective_captured"
 				},
 				{
 					"time": 1606880655,
-					"class": "server",
+					"group": "server",
 					"label": "round_end"
 				}
 			],
 			"players": {
 				"allies": {
                     "61c82zqc": {
-						"alias": "player_a",
+						"aliases": ["player_a"],
 						"start_time": 1606880055,
 						"end_time": 1606881255,
-						"classes": [
-                            {
-								"class": "medic",
-								"time_as": 900
-							},
-							{
-								"class": "soldier",
-								"time_as": 300
-							}
-						],
+						"classes": ["medic", "soldier"],
 						"stats": {
 							"ammo_given": 0,
 							"damage_given": 0,
@@ -161,7 +166,7 @@
 			}
 		},
 		{
-            "time_limit": 570,
+            "time_limit": null,
 			"events": [],
 			"players": {
 				"allies": {},
