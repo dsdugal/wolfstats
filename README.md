@@ -1,2 +1,2 @@
 # wolfstats
-Data Manipulation Tools for Return to Castle Wolfenstein
+Data Manipulation Libraries for Return to Castle Wolfenstein
