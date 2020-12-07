@@ -12,11 +12,9 @@
 		"mapname": "mp_beach",
 		"winner": "allies"
 	},
-	"rounds": [
-        {
-            "time_limit": 600,
-			"events": [
-                {
+	"rounds": [{
+			"time_limit": 600,
+			"events": [{
 					"time": 1606880055,
 					"group": "server",
 					"label": "round_start"
@@ -78,7 +76,7 @@
 			],
 			"players": {
 				"allies": {
-                    "61c82zqc": {
+					"61c82zqc": {
 						"aliases": ["player_a"],
 						"start_time": 1606880055,
 						"end_time": 1606881255,
@@ -105,8 +103,7 @@
 							"team_deaths": 0,
 							"team_kills": 0
 						},
-						"wstats": [
-                            {
+						"wstats": [{
 								"weapon": "knife",
 								"kills": 1,
 								"deaths": 0,
@@ -146,27 +143,27 @@
 								"hits": 2,
 								"headshots": 1
 							}
-                        ]
+						]
 
-                    },
-                    "ecrq9bk0": {},
-                    "59rqgl5b": {},
-                    "5yhtaxi0": {},
-                    "nlqynxb4": {},
-                    "e31hx7mj": {}
+					},
+					"ecrq9bk0": {},
+					"59rqgl5b": {},
+					"5yhtaxi0": {},
+					"nlqynxb4": {},
+					"e31hx7mj": {}
 				},
 				"axis": {
-                    "736188bt": {},
-                    "clv3oa2c": {},
-                    "4g5exajz": {},
-                    "kgfkjm7r": {},
-                    "64xjnn3c": {},
-                    "c0un1osz": {}
-                }
+					"736188bt": {},
+					"clv3oa2c": {},
+					"4g5exajz": {},
+					"kgfkjm7r": {},
+					"64xjnn3c": {},
+					"c0un1osz": {}
+				}
 			}
 		},
 		{
-            "time_limit": null,
+			"time_limit": null,
 			"events": [],
 			"players": {
 				"allies": {},
