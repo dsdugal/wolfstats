@@ -77,9 +77,9 @@
 			"players": {
 				"allies": {
 					"61c82zqc": {
-						"aliases": ["player_a"],
 						"start_time": 1606880055,
 						"end_time": 1606881255,
+						"aliases": ["player_a"],
 						"classes": ["medic", "soldier"],
 						"stats": {
 							"ammo_given": 0,
