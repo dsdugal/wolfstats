@@ -1,18 +1,20 @@
 {
 	"schema": 0.1,
+	"match_id": 1606881280,
 	"summary": {
-		"match_id": 1606881280,
 		"start_time": 1606880055,
 		"end_time": 1606881255,
 		"host_address": [104, 153, 105, 209],
 		"host_port": 27970,
 		"mod_name": "rtcwpro",
-		"mod_version": "1.1b",
+		"mod_version": "1.0.1",
+		"mod_config": "035b3ad025f0cb3c6dd7b4a5235d1a44",
 		"gametype": 6,
 		"mapname": "mp_beach",
 		"winner": "allies"
 	},
 	"rounds": [{
+			"round_id": 0,
 			"time_limit": 600,
 			"events": [{
 					"time": 1606880055,
@@ -48,6 +50,7 @@
 					"group": "player",
 					"label": "kill",
 					"agent": "61c82zqc",
+					"health": 85,
 					"other": "64xjnn3c"
 				},
 				{
@@ -163,6 +166,7 @@
 			}
 		},
 		{
+			"round_id": 1,
 			"time_limit": null,
 			"events": [],
 			"players": {
