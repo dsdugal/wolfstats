@@ -11,6 +11,8 @@
 		"mod_config": "035b3ad025f0cb3c6dd7b4a5235d1a44",
 		"gametype": 6,
 		"mapname": "mp_beach",
+		"allies_cycle": 30,
+		"axis_cycle": 40,
 		"winner": "allies"
 	},
 	"rounds": [{
@@ -36,6 +38,12 @@
 					"time": 1606880205,
 					"group": "server",
 					"label": "unpause"
+				},
+				{
+					"time": 1606880210,
+					"group": "server",
+					"label": "respawn",
+					"team": "allies"
 				},
 				{
 					"time": 1606880235,
