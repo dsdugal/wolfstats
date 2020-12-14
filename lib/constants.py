@@ -1,8 +1,14 @@
+DEFAULT_HEADERS = {
+    "guid": 0,
+    "alias": 1,
+    "team": 2,
+    "start_time": 3,
+    "end_time": 4
+}
+
 GAMETYPES = {
-    "checkpoint": 0,
-    "deathmatch": 0,
-    "objective": 5,
-    "stopwatch": 6
+    5: "objective",
+    6: "stopwatch"
 }
 
 TEAMS = {
