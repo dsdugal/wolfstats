@@ -1,3 +1,9 @@
+"""
+x
+"""
+
+# Constants
+
 DEFAULT_HEADERS = {
     "guid": 0,
     "alias": 1,
@@ -6,9 +12,18 @@ DEFAULT_HEADERS = {
     "end_time": 4
 }
 
+EVENT_GROUPS = []
+
+EVENT_LABELS = []
+
 GAMETYPES = {
     5: "objective",
     6: "stopwatch"
+}
+
+ROUNDS = {
+    1: ":A",
+    2: "B"
 }
 
 TEAMS = {

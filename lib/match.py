@@ -21,9 +21,9 @@ class Match( object ):
         Parameters
         ----------
         match_id : int
-            x
+            The unique identifier for this match.
         winner : str
-            x
+            The winning team.
         """
 
         assert match_id > 0
@@ -40,6 +40,30 @@ class Match( object ):
         self._axis_cycle = None
         self._winner = None
         self._stats = None
+
+
+    def __lt__( self, other ):
+        return self.match_id < other.match_id
+
+
+    def __le__( self, other ):
+        return self.match_id <= other.match_id
+
+
+    def __eq__( self, other ):
+        return self.match_id == other.match_id
+
+
+    def __ne__( self, other ):
+        return self.match_id != other.match_id
+
+
+    def __ge__( self, other ):
+        return self.match_id >= other.match_id
+
+
+    def __gt__( self, other ):
+        return self.match_id > other.match_id
 
 
     def __str__( self ):
@@ -61,9 +85,10 @@ class Match( object ):
         string += f"axis_players: {', '.join( self.axis_players )}\n"
         string += f"axis_size: {self.axis_size}\n"
         string += f"winner: {self.winner}\n"
-        string += f"stats:\n\n"
+        string += f"stats:\n"
         string += f"{self.stats}"
         return string
+
 
     # Properties
 
