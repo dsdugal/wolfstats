@@ -103,6 +103,27 @@ class Table( object ):
 
     # Public Methods
 
+    def column_sum( self, column: int, select: int = None, value = None ) -> int:
+        """
+        Returns the sum of the values in a column of a table.
+
+        Parameters
+        ----------
+        column : int
+            The column to look for data in.
+        select : int
+            The column to filter results by.
+        value : object
+            The value to filter results by.
+        """
+
+        data = self.column_data( column, select, value )
+        if all( isinstance( v, ( float, int )) for v in data ):
+            return sum( data ) / len( data )
+        else:
+            return None
+    
+
     def column_data( self, column: int, select: int = None, value = None ) -> list:
         """
         Returns a list that contains the values in a column of a table.
