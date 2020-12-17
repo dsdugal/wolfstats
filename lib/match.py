@@ -3,10 +3,12 @@ x
 """
 
 # Global Imports
+
 from time import time
 
 
 # Local Imports
+
 import lib.constants as info
 from lib.table import Table
 
@@ -153,7 +155,7 @@ class Match( object ):
 
 
     @mod_name.setter
-    def mod_name( self, mod_name ) -> str:
+    def mod_name( self, mod_name ):
         assert len( mod_name ) > 0
         self._mod_name = mod_name
 

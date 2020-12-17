@@ -3,6 +3,7 @@ x
 """
 
 # Local Imports
+
 import lib.constants as info
 
 
@@ -19,7 +20,7 @@ class Event( object ):
         context : dict
             The details for this event.
         """
-        
+
         assert time > 0
         self._time = time
         self._context = context

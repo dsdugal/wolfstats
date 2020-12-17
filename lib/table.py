@@ -3,6 +3,7 @@ x
 """
 
 # Local Imports
+
 import lib.constants as info
 
 
@@ -44,6 +45,10 @@ class Table( object ):
     def body( self ) -> list:
         return self._body
 
+    @body.setter
+    def body( self, body ):
+        self.body = body
+
 
     @property
     def headers( self ) -> list:
@@ -56,7 +61,7 @@ class Table( object ):
 
 
     @sums.setter
-    def sums( self, sums ) -> list:
+    def sums( self, sums ):
         self.sums = sums
 
 
@@ -103,7 +108,7 @@ class Table( object ):
 
     # Public Methods
 
-    def column_sum( self, column: int, select: int = None, value = None ) -> int:
+    def column_avg( self, column: int, select: int = None, value = None ) -> int:
         """
         Returns the sum of the values in a column of a table.
 
