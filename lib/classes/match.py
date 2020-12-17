@@ -9,8 +9,8 @@ from time import time
 
 # Local Imports
 
+from lib.classes.table import Table
 import lib.constants as info
-from lib.table import Table
 
 
 class Match( object ):

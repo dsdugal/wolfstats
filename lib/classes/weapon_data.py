@@ -9,8 +9,8 @@ from copy import deepcopy
 
 # Local Imports
 
+from lib.classes.table import Table
 import lib.constants as info
-from lib.table import Table
 
 
 class WeaponData( object ):

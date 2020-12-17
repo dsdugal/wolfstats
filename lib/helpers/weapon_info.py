@@ -4,7 +4,7 @@ x
 
 # Local Imports
 
-from lib.weapon_data import WeaponData
+from lib.classes.weapon_data import WeaponData
 
 
 class WeaponInfo( object ):

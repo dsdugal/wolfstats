@@ -4,8 +4,8 @@ x
 
 # Local Imports
 
-from lib.match import Match
-from lib.table import Table
+from lib.classes.match import Match
+from lib.classes.table import Table
 
 
 class MatchInfo( object ):
