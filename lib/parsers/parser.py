@@ -9,6 +9,7 @@ from json import loads
 
 # Local Imports
 
+from lib.classes.event import Event
 from lib.classes.match import Match
 from lib.classes.round import Round
 from lib.classes.table import Table
@@ -76,7 +77,9 @@ class Parser( object ):
             instance.start_time = element['start_time']
             instance.end_time = element['end_time']
             instance.time_limit = element['time_limit']
-            instance.events = [ event for event in element['events']]
+            for context in element['events']:
+                time = context.pop( 'time' )
+                instance.events.append( Event( time, context ))
             instances.append( instance )
         return instances
 
