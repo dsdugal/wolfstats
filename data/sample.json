@@ -16,6 +16,8 @@
 		"winner": "allies"
 	},
 	"rounds": [{
+			"start_time": 1606880055,
+			"end_time": 1606880655,
 			"time_limit": 600,
 			"events": [{
 					"time": 1606880055,
@@ -57,6 +59,7 @@
 					"group": "player",
 					"label": "kill",
 					"agent": "61c82zqc",
+					"class": "medic",
 					"health": 85,
 					"other": "64xjnn3c"
 				},
@@ -76,109 +79,121 @@
 				{
 					"time": 1606880655,
 					"group": "player",
-					"label": "objective_captured"
+					"label": "objective_captured",
+					"text": "INFO: Allies captured the objective!"
 				},
 				{
 					"time": 1606880655,
 					"group": "server",
 					"label": "round_end"
 				}
-			],
-			"players": {
-				"allies": {
-					"61c82zqc": {
-						"start_time": 1606880055,
-						"end_time": 1606881255,
-						"aliases": ["player_a"],
-						"classes": ["medic", "soldier"],
-						"stats": {
-							"ammo_given": 0,
-							"damage_given": 0,
-							"damage_received": 0,
-							"dynamite_defused": 0,
-							"dynamite_planted": 0,
-							"deaths": 15,
-							"flags_captured": 0,
-							"gibs": 5,
-							"health_given": 0,
-							"kills": 25,
-							"obj_captured": 0,
-							"obj_destroyed": 0,
-							"obj_returned": 0,
-							"obj_taken": 0,
-							"revives": 5,
-							"suicides": 0,
-							"team_damage_given": 0,
-							"team_damage_received": 0,
-							"team_deaths": 0,
-							"team_kills": 0
-						},
-						"wstats": [{
-								"weapon": "knife",
-								"kills": 1,
-								"deaths": 0,
-								"shots": 8,
-								"hits": 6,
-								"headshots": null
-							},
-							{
-								"weapon": "colt",
-								"kills": 5,
-								"deaths": 0,
-								"shots": 32,
-								"hits": 24,
-								"headshots": 4
-							},
-							{
-								"weapon": "thompson",
-								"kills": 15,
-								"deaths": 0,
-								"shots": 480,
-								"hits": 200,
-								"headshots": 30
-							},
-							{
-								"weapon": "grenade",
-								"kills": 0,
-								"deaths": 0,
-								"shots": 2,
-								"hits": 4,
-								"headshots": null
-							},
-							{
-								"weapon": "mauser",
-								"kills": 4,
-								"deaths": 0,
-								"shots": 8,
-								"hits": 2,
-								"headshots": 1
-							}
-						]
-
-					},
-					"ecrq9bk0": {},
-					"59rqgl5b": {},
-					"5yhtaxi0": {},
-					"nlqynxb4": {},
-					"e31hx7mj": {}
-				},
-				"axis": {
-					"736188bt": {},
-					"clv3oa2c": {},
-					"4g5exajz": {},
-					"kgfkjm7r": {},
-					"64xjnn3c": {},
-					"c0un1osz": {}
-				}
-			}
+			]
 		},
 		{
+			"start_time": null,
+			"end_time": null,
 			"time_limit": null,
-			"events": [],
-			"players": {
-				"allies": {},
-				"axis": {}
-			}
+			"events": []
+		}
+	],
+	"stats": [{
+			"61c82zqc": {
+				"team": "allies",
+				"start_time": 1606880055,
+				"end_time": 1606881255,
+				"categories": {
+					"ammo_given": 0,
+					"damage_given": 0,
+					"damage_received": 0,
+					"dynamite_defused": 0,
+					"dynamite_planted": 0,
+					"deaths": 15,
+					"flags_captured": 0,
+					"gibs": 5,
+					"goombas": 0,
+					"health_given": 0,
+					"kills": 25,
+					"obj_captured": 0,
+					"obj_destroyed": 0,
+					"obj_returned": 0,
+					"obj_taken": 0,
+					"revives": 5,
+					"suicides": 0,
+					"team_damage_given": 0,
+					"team_damage_received": 0,
+					"team_deaths": 0,
+					"team_gibs": 0,
+					"team_kills": 0
+				}
+			},
+			"ecrq9bk0": {},
+			"59rqgl5b": {},
+			"5yhtaxi0": {},
+			"nlqynxb4": {},
+			"e31hx7mj": {},
+			"736188bt": {},
+			"clv3oa2c": {},
+			"4g5exajz": {},
+			"kgfkjm7r": {},
+			"64xjnn3c": {},
+			"c0un1osz": {}
+		},
+		{
+			"61c82zqc": {},
+			"ecrq9bk0": {},
+			"59rqgl5b": {},
+			"5yhtaxi0": {},
+			"nlqynxb4": {},
+			"e31hx7mj": {},
+			"736188bt": {},
+			"clv3oa2c": {},
+			"4g5exajz": {},
+			"kgfkjm7r": {},
+			"64xjnn3c": {},
+			"c0un1osz": {}
+		}
+	],
+	"wstats": [{
+			"61c82zqc": [{
+				"weapon": "knife",
+				"kills": 1,
+				"deaths": 0,
+				"suicides": 0,
+				"damage_given": 0,
+				"damage_received": 0,
+				"team_kills": 0,
+				"team_deaths": 0,
+				"team_damage_given": 0,
+				"team_damage_received": 0,
+				"shots": 8,
+				"hits": 6,
+				"headshots": null
+			}],
+			"ecrq9bk0": [],
+			"59rqgl5b": [],
+			"5yhtaxi0": [],
+			"nlqynxb4": [],
+			"e31hx7mj": [],
+			"736188bt": [],
+			"clv3oa2c": [],
+			"4g5exajz": [],
+			"kgfkjm7r": [],
+			"64xjnn3c": [],
+			"c0un1osz": []
+		},
+		{
+			"61c82zqc": [],
+			"ecrq9bk0": [],
+			"59rqgl5b": [],
+			"5yhtaxi0": [],
+			"nlqynxb4": [],
+			"e31hx7mj": [],
+			"736188bt": [],
+			"clv3oa2c": [],
+			"4g5exajz": [],
+			"kgfkjm7r": [],
+			"64xjnn3c": [],
+			"c0un1osz": []
 		}
 	]
 }
