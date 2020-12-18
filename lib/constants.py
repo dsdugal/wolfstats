@@ -13,6 +13,7 @@ CATEGORY_HEADERS = [
     "deaths",
     "flags_captured",
     "gibs",
+    "goombas",
     "health_given",
     "kills",
     "obj_captured",
@@ -24,15 +25,15 @@ CATEGORY_HEADERS = [
     "team_damage_given",
     "team_damage_received",
     "team_deaths",
+    "team_gibs",
     "team_kills"
 ]
 
 DEFAULT_HEADERS = {
     "guid": 0,
-    "alias": 1,
-    "team": 2,
-    "start_time": 3,
-    "end_time": 4
+    "team": 1,
+    "start_time": 2,
+    "end_time": 3
 }
 
 EVENT_GROUPS = []
@@ -52,8 +53,8 @@ ROUNDS = {
 }
 
 TEAMS = {
-    "allies": 1,
-    "axis": 2
+    1: "allies",
+    2: "axis"
 }
 
 WEAPONS = [
@@ -73,4 +74,21 @@ WEAPONS = [
     "sten",
     "thompson",
     "venom",
+]
+
+WSTAT_HEADERS = [
+    "kills",
+    "deaths",
+    "suicides",
+    "damage",
+    "damage_received",
+    "team_kills",
+    "team_deaths"
+    "team_damage_given"
+    "team_damage_received"
+    "shots",
+    "hits",
+    "headshots",
+    "accuracy",
+    "headshot_accuracy"
 ]

@@ -9,19 +9,28 @@ from copy import deepcopy
 
 # Local Imports
 
+from lib.classes.table import Table
 import lib.constants as info
-from lib.table import Table
 
 
-class WeaponData( object ):
+class WStat( object ):
     """
     x
     """
 
-    def __init_( self ):
+    def __init_( self, match_id : int ):
+        assert match_id > 0
+        self._match_id = match_id
         self._table = None
 
-    
+
+    # Properties
+
+    @property
+    def match_id( self ) -> int:
+        return self._match_id
+
+
     @property
     def table( self ) -> Table:
         return self._table
@@ -48,9 +57,8 @@ class WeaponData( object ):
             The column headers to narrow the table data by.
         """
 
-        assert guid.alnum()
-        assert 0 < len( guid ) < 64
-        assert weapon in info.WEAPONS
+        self._validate_guid
+        self._validate_weapon
         assert all( header for header in headers if ( header in info.DEFAULT_HEADERS or header in info.CATEGORY_HEADERS ))
         copy = deepcopy( self.table )
         narrow_columns = []
@@ -80,9 +88,8 @@ class WeaponData( object ):
             The name of a weapon to narrow the table data by.
         """
 
-        assert guid.alnum()
-        assert 0 < len( guid ) < 64
-        assert weapon in info.WEAPONS
+        self._validate_guid
+        self._validate_weapon
         return [row for row in self.table.body if row[0] == guid and ( not weapon or row[1] == weapon )]
 
 
@@ -103,3 +110,32 @@ class WeaponData( object ):
         copy = deepcopy( self.table )
         copy.body = sorted( copy.body, key = lambda body:body[column], reverse=( not ascend ))
         return copy
+
+
+    # Input Validation
+
+    def _validate_guid( self, guid: str ):
+        """
+        x
+
+        Parameters
+        ----------
+        guid : str
+            x
+        """
+
+        assert guid.alnum()
+        assert 0 < len( guid ) < 64
+
+
+    def _validate_weapon( self, weapon: str ):
+        """
+        x
+
+        Parameters
+        ----------
+        weapon : str
+            x
+        """
+
+        assert weapon in info.WEAPONS

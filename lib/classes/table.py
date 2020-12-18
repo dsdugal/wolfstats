@@ -73,7 +73,7 @@ class Table( object ):
         Returns the number of columns (categories) in this table.
         """
 
-        return len( self.body[0] )
+        return len( self.headers )
 
 
     @property
@@ -99,11 +99,23 @@ class Table( object ):
             The last index in the range (exclusive).
         """
 
+        self._validate_index( start )
+        assert start < limit <= self.columns
         for i in range( start, limit ):
             if self.headers[i] not in info.DEFAULT_HEADERS:
                 self.sums[i] = self.column_sum( i )
             else:
                 self.sums[i] = None
+
+
+    # Input Validation
+
+    def _validate_index( self, index: str ):
+        """
+        x
+        """
+
+        assert 0 <= index < self.columns
 
 
     # Public Methods
@@ -122,6 +134,9 @@ class Table( object ):
             The value to filter results by.
         """
 
+        self._validate_index( column )
+        if select:
+            self._validate_index( select )
         data = self.column_data( column, select, value )
         if all( isinstance( v, ( float, int )) for v in data ):
             return sum( data ) / len( data )
