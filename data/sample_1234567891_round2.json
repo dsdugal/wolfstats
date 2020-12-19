@@ -1,0 +1,163 @@
+{
+	"schema": 0.1,
+	"match_id": 1606881280,
+	"summary": {
+		"start_time": 1606880055,
+		"end_time": 1606881255,
+		"host_address": [104, 153, 105, 209],
+		"host_port": 27970,
+		"mod_name": "rtcwpro",
+		"mod_version": "1.0.1",
+		"mod_config": "035b3ad025f0cb3c6dd7b4a5235d1a44",
+		"gametype": 6,
+		"mapname": "mp_beach",
+		"allies_cycle": 30,
+		"axis_cycle": 40,
+		"winner": "allies"
+	},
+	"round": {
+		"round_id": 1,
+		"start_time": 1606880055,
+		"end_time": 1606880655,
+		"time_limit": 600,
+		"events": [{
+				"time": 1606880055,
+				"group": "server",
+				"label": "round_start"
+			},
+			{
+				"time": 1606880055,
+				"group": "player",
+				"label": "change_class",
+				"agent": "61c82zqc",
+				"class": "medic"
+			},
+			{
+				"time": 1606880175,
+				"group": "server",
+				"label": "pause"
+			},
+			{
+				"time": 1606880205,
+				"group": "server",
+				"label": "unpause"
+			},
+			{
+				"time": 1606880210,
+				"group": "server",
+				"label": "respawn",
+				"team": "allies"
+			},
+			{
+				"time": 1606880235,
+				"group": "server",
+				"label": "class",
+				"agent": "61c82zqc",
+				"class": "soldier"
+			},
+			{
+				"time": 1606880265,
+				"group": "player",
+				"label": "kill",
+				"agent": "61c82zqc",
+				"class": "medic",
+				"health": 85,
+				"other": "64xjnn3c"
+			},
+			{
+				"time": 1606880270,
+				"group": "player",
+				"label": "revive",
+				"agent": "61c82zqc",
+				"other": "ecrq9bk0"
+			},
+			{
+				"time": 1606880625,
+				"group": "player",
+				"label": "objective_taken",
+				"agent": "61c82zqc"
+			},
+			{
+				"time": 1606880655,
+				"group": "player",
+				"label": "objective_captured",
+				"text": "INFO: Allies captured the objective!"
+			},
+			{
+				"time": 1606880655,
+				"group": "server",
+				"label": "round_end"
+			}
+		]
+	},
+	"stats": {
+		"61c82zqc": {
+			"team": "allies",
+			"start_time": 1606880055,
+			"end_time": 1606881255,
+			"categories": {
+				"ammo_given": 0,
+				"damage_given": 0,
+				"damage_received": 0,
+				"dynamite_defused": 0,
+				"dynamite_planted": 0,
+				"deaths": 15,
+				"flags_captured": 0,
+				"gibs": 5,
+				"goombas": 0,
+				"health_given": 0,
+				"kills": 25,
+				"obj_captured": 0,
+				"obj_destroyed": 0,
+				"obj_returned": 0,
+				"obj_taken": 0,
+				"revives": 5,
+				"suicides": 0,
+				"team_damage_given": 0,
+				"team_damage_received": 0,
+				"team_deaths": 0,
+				"team_gibs": 0,
+				"team_kills": 0
+			}
+		},
+		"ecrq9bk0": {},
+		"59rqgl5b": {},
+		"5yhtaxi0": {},
+		"nlqynxb4": {},
+		"e31hx7mj": {},
+		"736188bt": {},
+		"clv3oa2c": {},
+		"4g5exajz": {},
+		"kgfkjm7r": {},
+		"64xjnn3c": {},
+		"c0un1osz": {}
+	},
+	"wstats": {
+		"61c82zqc": [{
+			"weapon": "knife",
+			"kills": 1,
+			"deaths": 0,
+			"suicides": 0,
+			"damage_given": 0,
+			"damage_received": 0,
+			"team_kills": 0,
+			"team_deaths": 0,
+			"team_damage_given": 0,
+			"team_damage_received": 0,
+			"shots": 8,
+			"hits": 6,
+			"headshots": null
+		}],
+		"ecrq9bk0": [],
+		"59rqgl5b": [],
+		"5yhtaxi0": [],
+		"nlqynxb4": [],
+		"e31hx7mj": [],
+		"736188bt": [],
+		"clv3oa2c": [],
+		"4g5exajz": [],
+		"kgfkjm7r": [],
+		"64xjnn3c": [],
+		"c0un1osz": []
+	}
+}

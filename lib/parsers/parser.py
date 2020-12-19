@@ -4,7 +4,9 @@ x
 
 # Global Imports
 
+from glob import glob
 from json import loads
+from re import search
 
 
 # Local Imports
@@ -47,7 +49,6 @@ class Parser( object ):
         match.mapname = data['summary']['mapname']
         match.allies_cycle = data['summary']['allies_cycle']
         match.axis_cycle = data['summary']['axis_cycle']
-        match.winner = data['summary']['winner']
         return match
 
 
@@ -127,6 +128,18 @@ class Parser( object ):
 
     # Public Methods
 
+    def get_pairs( self, directory: str = "data" ) -> list:
+        """
+        x
+        """
+
+        pairs = []
+        files = sorted( glob( f"{directory}/*.json" ))
+        for i in range( 0, len( files ), 2 ):
+            pairs.append( files[i:i + 2] )
+        return pairs
+
+
     def parse( self, file_paths: list ) -> Match:
         """
         x
@@ -150,6 +163,7 @@ class Parser( object ):
         
         data = self._validate_path( file_path )
         match = self._parse_match( data )
+        match.winner = data['summary']['winner']
         return match
 
 
@@ -164,6 +178,8 @@ class Parser( object ):
         match = self._parse_match( valid_data[0] )
         for data in valid_data:
             match = self._parse_round( match, data )
+        if not match.winner:
+            match.winner = valid_data[-1]['summary']['winner']
         return match
 
 
@@ -179,6 +195,8 @@ class Parser( object ):
         match = self._parse_match( valid_data[0] )
         for data in valid_data:
             match = self._parse_stat( match, data )
+        if not match.winner:
+            match.winner = valid_data[-1]['summary']['winner']
         return match
 
 
@@ -193,4 +211,6 @@ class Parser( object ):
         match = self._parse_match( valid_data[0] )
         for data in valid_data:
             match = self._parse_wstat( match, data )
+        if not match.winner:
+            match.winner = valid_data[-1]['summary']['winner']
         return match
