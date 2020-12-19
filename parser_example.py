@@ -1,21 +1,21 @@
-#
+"""
+x
+"""
+
+# Global Imports
 
 from glob import glob
 from json import dumps, loads
 
 
-#
+# Local Imports
 
 import lib.constants as info
-from lib.classes.event import Event
 from lib.classes.match import Match
-from lib.classes.round import Round
-from lib.classes.table import Table
 from lib.parsers.parser import Parser
 
-#
 
-SUPPORTED_SCHEMAS = [ 0.1 ]
+# Driver
 
 data_files = glob( "data/*.json" )
 
