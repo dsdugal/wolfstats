@@ -2,8 +2,8 @@
 An example of how to create Match objects and display their data.
 
 Currently, to run this example:
-    - comment out match.py line 28
-    - add 'break' after parser.py line 87 and 105 
+    - comment out table.py line 31
+    - uncomment parser.py line 88 and line 107
 """
 
 # Local Imports

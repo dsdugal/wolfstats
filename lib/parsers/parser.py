@@ -85,6 +85,7 @@ class Parser( object ):
             stat_line.append( branch[guid]['end_time'] )
             stat_line.extend( list( branch[guid]['categories'].values()))
             body.append( stat_line )
+            # break
         match.stats.append( Table( headers, body ))
         return match
 
@@ -103,6 +104,7 @@ class Parser( object ):
                 stat_line = [guid]
                 stat_line.extend( list( wstat.values()))
                 body.append( stat_line )
+            # break
         match.wstats.append( Table( headers, body ))
         return match
 
