@@ -26,17 +26,4 @@ if data_files:
         print( match )
 else:
     exit( True )
-
-
-"""
-    round_id : int
-        The attribute used to distinguish between attack and defence in stopwatch rounds.
-    start_time : int
-        The time in seconds that this round started (UNIX).
-    end_time : int
-        The time in seconds that this round ended (UNIX).
-    time_limit : int
-        The maximum duration in seconds of this round.
-"""
-
-### aliases and classes not accounted for in helper classes?
+    
