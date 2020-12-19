@@ -1,5 +1,9 @@
 """
-x
+An example of how to create Match objects and display their data.
+
+Currently, to run this example:
+    - comment out match.py line 28
+    - add 'break' after parser.py line 87 and 105 
 """
 
 # Local Imports
