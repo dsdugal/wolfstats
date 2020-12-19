@@ -13,7 +13,6 @@ from lib.classes.event import Event
 from lib.classes.match import Match
 from lib.classes.round import Round
 from lib.classes.table import Table
-from lib.classes.wstat import WStat
 import lib.constants as info
 
 
@@ -36,73 +35,75 @@ class Parser( object ):
         x
         """
 
-        instance = Match( data['match_id'] )
-        instance.start_time = data['summary']['start_time']
-        instance.end_time = data['summary']['end_time']
-        instance.host_address = data['summary']['host_address']
-        instance.host_port = data['summary']['host_port']
-        instance.mod_name = data['summary']['mod_name']
-        instance.mod_version = data['summary']['mod_version']
-        instance.mod_config = data['summary']['mod_config']
-        instance.gametype = data['summary']['gametype']
-        instance.mapname = data['summary']['mapname']
-        instance.allies_cycle = data['summary']['allies_cycle']
-        instance.axis_cycle = data['summary']['axis_cycle']
-        instance.winner = data['summary']['winner']
-        instance.rounds = []
-        if data['stats']:
-            headers = info.DEFAULT_HEADERS.keys().extend( info.CATEGORY_HEADERS )
-        for element in data['stats']:
-            body = []
-            for guid in element:
+        match = Match( data['match_id'] )
+        match.start_time = data['summary']['start_time']
+        match.end_time = data['summary']['end_time']
+        match.host_address = data['summary']['host_address']
+        match.host_port = data['summary']['host_port']
+        match.mod_name = data['summary']['mod_name']
+        match.mod_version = data['summary']['mod_version']
+        match.mod_config = data['summary']['mod_config']
+        match.gametype = data['summary']['gametype']
+        match.mapname = data['summary']['mapname']
+        match.allies_cycle = data['summary']['allies_cycle']
+        match.axis_cycle = data['summary']['axis_cycle']
+        match.winner = data['summary']['winner']
+        return match
+
+
+    def _parse_round( self, match: Match, data: dict ) -> Match:
+        """
+        x
+        """
+
+        branch = data['round']
+        instance = Round( branch['round_id'] )
+        instance.start_time = branch['start_time']
+        instance.end_time = branch['end_time']
+        instance.time_limit = branch['time_limit']
+        for context in branch['events']:
+            time = context.pop( 'time' )
+            instance.events.append( Event( time, context ))
+        match.rounds.append( instance )
+        return match
+
+
+    def _parse_stat( self, match: Match, data: dict ) -> Match:
+        """
+        x
+        """
+
+        branch = data['stats']
+        headers = list( info.DEFAULT_HEADERS.keys())
+        headers.extend( info.CATEGORY_HEADERS )
+        body = []
+        for guid in branch:
+            stat_line = [guid]
+            stat_line.append( branch[guid]['team'] )
+            stat_line.append( branch[guid]['start_time'] )
+            stat_line.append( branch[guid]['end_time'] )
+            stat_line.extend( list( branch[guid]['categories'].values()))
+            body.append( stat_line )
+        match.stats.append( Table( headers, body ))
+        return match
+
+
+    def _parse_wstat( self, match: Match, data: dict ) -> Match:
+        """
+        x
+        """
+
+        branch = data['wstats']
+        headers = list( info.DEFAULT_HEADERS )[0:2]
+        headers.extend( info.WSTAT_HEADERS )
+        body = []
+        for guid in branch:
+            for wstat in branch[guid]:
                 stat_line = [guid]
-                stat_line.append( element[guid]['team'] )
-                stat_line.append( element[guid]['start_time'] )
-                stat_line.append( element[guid]['end_time'] )
-                stat_line.extend( list( element[guid]['categories'].values()))
+                stat_line.extend( list( wstat.values()))
                 body.append( stat_line )
-            instance.rounds.append( Table( headers, body ))
-        return instance
-
-
-    def _parse_round( self, data: dict ) -> list:
-        """
-        x
-        """
-
-        instances = []
-        for element in data['rounds']:
-            instance = Round( data['match_id'] )
-            instance.round_id = len( instances ) + 1
-            instance.start_time = element['start_time']
-            instance.end_time = element['end_time']
-            instance.time_limit = element['time_limit']
-            for context in element['events']:
-                time = context.pop( 'time' )
-                instance.events.append( Event( time, context ))
-            instances.append( instance )
-        return instances
-
-
-    def _parse_wstat( self, data: dict ) -> list:
-        """
-        x
-        """
-
-        instances = []
-        if data['wstats']:
-            headers = list( info.DEFAULT_HEADERS )[0:2].extend( info.WSTAT_HEADERS )
-        for element in data['wstats']:
-            instance = WStat( data['match_id'] )
-            body = []
-            for guid in element:
-                for wstat in element[guid]:
-                    stat_line = [guid]
-                    stat_line.extend( list( wstat.values()))
-                    body.append( stat_line )
-            instance.table = Table( headers, body )
-            instances.append( instance )
-        return instances
+        match.wstats.append( Table( headers, body ))
+        return match
 
     
     # Input Validation
@@ -112,27 +113,34 @@ class Parser( object ):
         x
         """
 
-        assert file_path
         assert 0 < len( file_path ) < 256
-        with open( file_path, "r" ) as data_file:
-            data = loads( data_file.read())
-            schema = data['schema']
-            assert schema in SUPPORTED_SCHEMAS
-            return data
+        try:
+            with open( file_path, "r" ) as data_file:
+                data = loads( data_file.read())
+                schema = data['schema']
+                assert schema in SUPPORTED_SCHEMAS
+        except FileNotFoundError:
+            pass
+            exit( False )
+        return data
 
 
     # Public Methods
 
-    def parse_all( self, file_path: str ) -> tuple:
+    def parse( self, file_paths: list ) -> Match:
         """
         x
         """
 
-        data = self._validate_path( file_path )
-        match_data = self._parse_match( data )
-        round_data = self._parse_round( data )
-        wstat_data = self._parse_wstat( data )
-        return match_data, round_data, wstat_data
+        valid_data = []
+        for file_path in file_paths:
+            valid_data.append( self._validate_path( file_path ))
+        match = self._parse_match( valid_data[0] )
+        for data in valid_data:
+            match = self._parse_round( match, data )
+            match = self._parse_stat( match, data )
+            match = self._parse_wstat( match, data )
+        return match
 
 
     def parse_match( self, file_path: str ) -> Match:
@@ -141,25 +149,48 @@ class Parser( object ):
         """
         
         data = self._validate_path( file_path )
-        match_data = self._parse_match( data )
-        return match_data
+        match = self._parse_match( data )
+        return match
 
 
-    def parse_round( self, file_path: str ) -> list:
+    def parse_round( self, file_paths: list ) -> Match:
         """
         x
         """
         
-        data = self._validate_path( file_path )
-        round_data = self._parse_round( data )
-        return round_data
+        valid_data = []
+        for file_path in file_paths:
+            valid_data.append( self._validate_path( file_path ))
+        match = self._parse_match( valid_data[0] )
+        for data in valid_data:
+            match = self._parse_round( match, data )
+        return match
 
 
-    def parse_wstat( self, file_path: str ) -> list:
+    def parse_stat( self, file_paths: list ) -> Match:
         """
         x
         """
         
-        data = self._validate_path( file_path )
-        wstat_data = self._parse_wstat( data )
-        return wstat_data
+
+        valid_data = []
+        for file_path in file_paths:
+            valid_data.append( self._validate_path( file_path ))
+        match = self._parse_match( valid_data[0] )
+        for data in valid_data:
+            match = self._parse_stat( match, data )
+        return match
+
+
+    def parse_wstat( self, file_paths: list ) -> Match:
+        """
+        x
+        """
+        
+        valid_data = []
+        for file_path in file_paths:
+            valid_data.append( self._validate_path( file_path ))
+        match = self._parse_match( valid_data[0] )
+        for data in valid_data:
+            match = self._parse_wstat( match, data )
+        return match

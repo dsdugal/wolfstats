@@ -4,7 +4,7 @@ x
 
 # Local Imports
 
-from lib.classes.wstat import WStat
+from lib.classes.table import Table
 
 
 class WStatInfo( object ):

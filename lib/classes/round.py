@@ -2,6 +2,11 @@
 x
 """
 
+# Global Imports
+
+from time import time
+
+
 # Local Imports
 
 import lib.constants as info
@@ -11,30 +16,30 @@ class Round( object ):
     """
     Parameters
     ----------
-    match_id : int
+    round_id : int
         x
     """
 
-    def __init__( self, match_id: int ):
-        assert match_id > 0
-        self._match_id = match_id
-        self._round_id = None
+    def __init__( self, round_id: int ):
+        self._round_id = round_id
         self._start_time = None
         self._end_time = None
         self._time_limit = None
-        self._events = None
+        self._events = []
 
 
     def __str__( self ):
-        pass
+        string = f"  round_id: {self.round_id}\n"
+        string += f"  start_time: {self.start_time}\n"
+        string += f"  end_time: {self.end_time}\n"
+        string += f"  time_limit: {self.time_limit}\n"
+        string += f"  events:\n"
+        for event in self.events:
+            string += f"    {event}\n"
+        return string
 
 
     # Properties
-
-    @property
-    def match_id( self ) -> int:
-        return self._match_id
-
 
     @property
     def round_id( self ) -> int:
@@ -118,8 +123,8 @@ class Round( object ):
 
     def _validate_times( self, start_time: int, end_time: int ):
         if start_time:
-            assert start_time > 0
+            assert time() > start_time > 0
         if end_time:
-            assert end_time > 0
+            assert time() > end_time > 0
         if start_time and end_time:
-            assert start_time > end_time
+            assert end_time > start_time

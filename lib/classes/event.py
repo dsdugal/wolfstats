@@ -26,6 +26,10 @@ class Event( object ):
         self._context = context
 
 
+    def __str__( self ):
+        return f"( time: {self.time} => {self.context} )"
+
+
     def __lt__( self, other ):
         return self.time < other.time
 
@@ -48,10 +52,6 @@ class Event( object ):
 
     def __gt__( self, other ):
         return self.time > other.time
-
-
-    def __str__( self ):
-        pass
 
 
     # Properties
