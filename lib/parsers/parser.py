@@ -20,6 +20,7 @@ import lib.constants as info
 
 # Constants
 
+SUPPORTED_FORMAT = "json"
 SUPPORTED_SCHEMAS = [
     0.1
 ]
@@ -34,7 +35,12 @@ class Parser( object ):
 
     def _parse_match( self, data: dict ) -> Match:
         """
-        x
+        Returns a Match object that contains match summary information.
+
+        Parameters
+        ----------
+        data : dict
+            The data from a valid JSON file.
         """
 
         match = Match( data['match_id'] )
@@ -54,7 +60,14 @@ class Parser( object ):
 
     def _parse_round( self, match: Match, data: dict ) -> Match:
         """
-        x
+        Updates and returns a Match object with round information.
+
+        Parameters
+        ----------
+        match : Match
+            x
+        data : dict
+            The data from a valid JSON file.
         """
 
         branch = data['round']
@@ -71,7 +84,14 @@ class Parser( object ):
 
     def _parse_stat( self, match: Match, data: dict ) -> Match:
         """
-        x
+        Updates and returns a Match object with player stat information.
+
+        Parameters
+        ----------
+        match : Match
+            x
+        data : dict
+            The data from a valid JSON file.
         """
 
         branch = data['stats']
@@ -92,7 +112,14 @@ class Parser( object ):
 
     def _parse_wstat( self, match: Match, data: dict ) -> Match:
         """
-        x
+        Updates and returns a Match object with player wstat information.
+
+        Parameters
+        ----------
+        match : Match
+            x
+        data : dict
+            The data from a valid JSON file.
         """
 
         branch = data['wstats']
@@ -113,7 +140,12 @@ class Parser( object ):
 
     def _validate_path( self, file_path: str ) -> dict:
         """
-        x
+        Validates the path of a file and returns the data if it is in a supported format.
+
+        Parameters
+        ----------
+        file_path : str
+            The relative path of a JSON file.
         """
 
         assert 0 < len( file_path ) < 256
@@ -132,13 +164,28 @@ class Parser( object ):
 
     def get_pairs( self, directory: str = "data" ) -> list:
         """
-        x
+        Returns a list of JSON file paths
         """
 
         pairs = []
-        files = sorted( glob( f"{directory}/*.json" ))
-        for i in range( 0, len( files ), 2 ):
-            pairs.append( files[i:i + 2] )
+        files = sorted( glob( f"{directory}/*.{SUPPORTED_FORMAT}" ))
+        for file in reversed( files ):
+            match_id = search( r"\d{10}", file )
+            if not match_id:
+                files.pop( files.index( file ))
+        i = -1
+        previous_id = None
+        for file in files:
+            matcher = search( r"\d{10}", file )
+            if matcher:
+                current_id = matcher.group( 0 )
+                if current_id == previous_id:
+                    pairs[i].append( file )
+                else:
+                    i += 1
+                    pairs.insert( i, [file])
+
+            previous_id = current_id
         return pairs
 
 
