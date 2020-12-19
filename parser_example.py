@@ -13,6 +13,5 @@ from lib.parsers.parser import Parser
 parser = Parser()
 match_pairs = parser.get_pairs()
 for pair in match_pairs:
-    print( pair )
     match = parser.parse( pair )
-    #print( match )
+    print( match )
