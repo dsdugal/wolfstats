@@ -8,7 +8,7 @@ from lib.classes.match import Match
 from lib.classes.table import Table
 
 
-class MatchInfo( object ):
+class MatchAnalyzer( object ):
     """
     x
     """

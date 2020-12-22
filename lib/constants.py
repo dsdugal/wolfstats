@@ -45,12 +45,20 @@ GAMETYPES = {
     6: "stopwatch"
 }
 
+PLACEHOLDER = "-"
+LINE_BREAK = PLACEHOLDER * 225
+
 RELEASE_TIME = 1609459200 # ???
 
 ROUNDS = {
     1: "A",
     2: "B"
 }
+
+SUPPORTED_FORMAT = "json"
+SUPPORTED_SCHEMAS = [
+    0.1
+]
 
 TEAMS = {
     1: "allies",

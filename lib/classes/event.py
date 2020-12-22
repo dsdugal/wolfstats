@@ -9,48 +9,49 @@ import lib.constants as info
 
 class Event( object ):
     """
+    x
     """
 
     def __init__( self, time: int, context: dict ):
         """
         Parameters
         ----------
-        time : str
+        time : int
             The time that this event occurred.
         context : dict
-            The details for this event.
+            The details associated with this event.
         """
 
-        assert time > 0
+        assert 0 < time
         self._time = time
         self._context = context
 
 
     def __str__( self ):
-        return f"( time: {self.time} => {self.context} )"
+        return f"time: {self.time} => {self.context}"
 
 
-    def __lt__( self, other ):
+    def __lt__( self, other: object ):
         return self.time < other.time
 
 
-    def __le__( self, other ):
+    def __le__( self, other: object ):
         return self.time <= other.time
 
 
-    def __eq__( self, other ):
+    def __eq__( self, other: object ):
         return self.time == other.time
 
 
-    def __ne__( self, other ):
+    def __ne__( self, other: object ):
         return self.time != other.time
 
 
-    def __ge__( self, other ):
+    def __ge__( self, other: object ):
         return self.time >= other.time
 
 
-    def __gt__( self, other ):
+    def __gt__( self, other: object ):
         return self.time > other.time
 
 

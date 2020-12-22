@@ -7,7 +7,7 @@ x
 from lib.classes.table import Table
 
 
-class WStatInfo( object ):
+class WStatAnalyzer( object ):
     """
     x
     """

@@ -40,8 +40,6 @@ class Match( object ):
         self._axis_cycle = None
         self._winner = None
         self._rounds = []
-        self._stats = []
-        self._wstats = []
 
 
     def __str__( self ):
@@ -58,24 +56,13 @@ class Match( object ):
         string += f"mapname: {self.mapname}\n"
         string += f"allies_cycle: {self.allies_cycle}\n"
         string += f"axis_cycle: {self.axis_cycle}\n"
-        string += f"allies_players: {', '.join( self.allies_players( 1 ))}\n"
-        string += f"allies_size: {self.allies_size( 1 )}\n"
-        string += f"axis_players: {', '.join( self.axis_players( 1 ))}\n"
-        string += f"axis_size: {self.axis_size( 1 )}\n"
         string += f"winner: {self.winner}\n"
-        string += f"categories: {self.categories}\n"
-        string += f"match_players: {self.match_players}\n"
-        string += f"match_size: {self.match_size}\n"
-        string += f"match_time: {self.match_time}\n" 
         string += f"rounds:\n"
         for element in self.rounds:
+            string += f"{info.LINE_BREAK}\n"
             string += f"{element}"
-        string += f"stats:\n"
-        for element in self.stats:
-            string += f"{element}"
-        string += f"wstats:\n"
-        for element in self.wstats:
-            string += f"{element}"
+        string += f"players:\n"
+        string += f"size:\n"
         return string
 
 
@@ -167,7 +154,7 @@ class Match( object ):
 
     @mod_name.setter
     def mod_name( self, mod_name ):
-        assert len( mod_name ) > 0
+        assert 0 < len( mod_name ) < 32
         self._mod_name = mod_name
 
 
@@ -178,7 +165,7 @@ class Match( object ):
 
     @mod_version.setter
     def mod_version( self, mod_version: str ):
-        assert 0 < len( mod_version ) < 64
+        assert 0 < len( mod_version ) < 32
         self._mod_version = mod_version
 
 
@@ -189,7 +176,7 @@ class Match( object ):
 
     @mod_config.setter
     def mod_config( self, mod_config: str ):
-        assert 0 < len( mod_config ) < 64
+        assert len( mod_config ) == 32
         self._mod_config = mod_config
 
 
@@ -222,7 +209,7 @@ class Match( object ):
 
     @allies_cycle.setter
     def allies_cycle( self, allies_cycle: int ):
-        assert 1 < allies_cycle < 60
+        assert 0 < allies_cycle < 60
         self._allies_cycle = allies_cycle
 
 
@@ -233,7 +220,7 @@ class Match( object ):
 
     @axis_cycle.setter
     def axis_cycle( self, axis_cycle: int ):
-        assert 1 < axis_cycle < 60
+        assert 0 < axis_cycle < 60
         self._axis_cycle = axis_cycle
 
 
@@ -244,7 +231,7 @@ class Match( object ):
 
     @winner.setter
     def winner( self, winner: str ):
-        assert winner in info.TEAMS.values()
+        assert not winner or winner in info.TEAMS.values()
         self._winner = winner
 
 
@@ -255,42 +242,45 @@ class Match( object ):
 
     @rounds.setter
     def rounds( self, rounds: list ):
-        assert rounds
         self._rounds = rounds
 
 
     @property
-    def stats( self ) -> list:
-        return self._stats
+    def length( self ):
+        """
+        Returns the total active time of this match.
+        """
 
-
-    @stats.setter
-    def stats( self, stats: list ):
-        assert stats
-        self._stats = stats
+        length = 0
+        if self.rounds:
+            for element in self.rounds:
+                length += element.length
+        return length
 
 
     @property
-    def wstats( self ) -> list:
-        return self._wstats
+    def players( self ):
+        """
+        Returns the list of players in this match.
+        """
+
+        players = set()
+        if self.rounds:
+            for element in self.rounds:
+                players.update( element.players )
+        return len( players )
 
 
-    @wstats.setter
-    def wstats( self, wstats: list ):
-        assert wstats
-        self._stats = wstats
+    @property
+    def size( self ):
+        """
+        Returns the number of players in this match.
+        """
+
+        return len( self.players )
 
 
     # Derivatives
-
-    @property
-    def categories( self ) -> list:
-        """
-        Returns the statistical categories tracked for this match.
-        """
-
-        return info.CATEGORY_HEADERS
-
 
     @property
     def gametype_str( self ) -> str:
@@ -312,108 +302,16 @@ class Match( object ):
         return ".".join( [f"{str( v )}" for v in self.host_address] ) + f":{str( self.host_port )}"
 
 
-    @property
-    def match_players( self ) -> list:
-        """
-        Returns the list all players in this match.
-        """
-
-        players = set()
-        if self.stats:
-            for element in self.stats:
-                players.update( element.column_data( 0 ))
-        elif self.wstats:
-            for element in self.wstats:
-                players.update( element.column_data( 0 ))
-        return list( players )
-
-
-    @property
-    def match_size( self ) -> int:
-        """
-        Returns the total number of players that played in this match.
-        """
-
-        return len( self.match_players )
-
-
-    @property
-    def match_time( self ) -> int:
-        """
-        Returns the total duration of this match in seconds.
-        """
-
-        assert self.end_time > self.start_time
-        return self.end_time - self.start_time # change to remove inactivity?
-
-
-    # Public Methods
-
-    def allies_players( self, round_id: int ) -> list:
-        """
-        Returns the list of players on allies in a round of this match.
-        """
-
-        self._validate_round_id( round_id )
-        players = []
-        if self.stats:
-            players.extend( self.stats[round_id - 1].column_data( 0, 1, "allies" ))
-        return players
-
-
-    def allies_size( self, round_id: int ) -> int:
-        """
-        Returns the number of players on allies in a round of this match.
-        """
-
-        self._validate_round_id( round_id )
-        return len( self.allies_players( round_id ) )
-
-
-    def axis_players( self, round_id: int ) -> list:
-        """
-        Returns the list of players on axis in a round of this match.
-        """
-
-        self._validate_round_id( round_id )
-        players = []
-        if self.stats:
-            players.extend( self.stats[round_id - 1].column_data( 0, 1, "axis" ))
-        return players
-
-
-    def axis_size( self, round_id: int ) -> int:
-        """
-        Returns the number of players on axis in a round of this match.
-        """
-
-        self._validate_round_id( round_id )
-        return len( self.axis_players( round_id ) )
-
-
-    def round_size( self, round_id: int ) -> int:
-        """
-        Returns the total number of players in a round of this match.
-        """
-
-        self._validate_round_id( round_id )
-        return len( self.allies_players( round_id ).extend( self.axis_players( round_id ))) # more direct method? table rows
-
-
-    def round_time( self, round_id: int ) -> int:
-        """
-        Returns the total length of a round in this match.
-        """
-
-        self._validate_round_id( round_id )
-        return self.rounds[round_id - 1].end_time - self.rounds[round_id - 1].start_time
-
-
     # Input Validation
 
     def _validate_round_id( self, round_id: int ):
         """
         x
+
+        Parameters
+        ----------
+        round_id : int
+            x
         """
 
         assert round_id in info.ROUNDS

@@ -18,14 +18,6 @@ from lib.classes.table import Table
 import lib.constants as info
 
 
-# Constants
-
-SUPPORTED_FORMAT = "json"
-SUPPORTED_SCHEMAS = [
-    0.1
-]
-
-
 class Parser( object ):
     """
     x
@@ -33,17 +25,20 @@ class Parser( object ):
 
     # Private Methods
 
-    def _parse_match( self, data: dict ) -> Match:
+    def _parse_summary( self, data: dict, match: Match = None ) -> Match:
         """
-        Returns a Match object that contains match summary information.
+        Returns a Match object that contains match summary data.
 
         Parameters
         ----------
         data : dict
-            The data from a valid JSON file.
+            The raw data from a valid JSON file.
+        match: Match
+            The data structure that contains relevant match data.
         """
 
-        match = Match( data['match_id'] )
+        if not match:
+            match = Match( data['match_id'] )
         match.start_time = data['summary']['start_time']
         match.end_time = data['summary']['end_time']
         match.host_address = data['summary']['host_address']
@@ -55,46 +50,66 @@ class Parser( object ):
         match.mapname = data['summary']['mapname']
         match.allies_cycle = data['summary']['allies_cycle']
         match.axis_cycle = data['summary']['axis_cycle']
+        match.winner = data['summary']['winner']
         return match
 
 
-    def _parse_round( self, match: Match, data: dict ) -> Match:
+    def _parse_round( self, data: dict, match: Match ) -> Match:
         """
-        Updates and returns a Match object with round information.
+        Returns a Match object that contains round specific data.
 
         Parameters
         ----------
-        match : Match
-            x
         data : dict
-            The data from a valid JSON file.
+            The raw data from a valid JSON file.
+        match: Match
+            The data structure that contains relevant match data.
         """
 
         branch = data['round']
-        instance = Round( branch['round_id'] )
-        instance.start_time = branch['start_time']
-        instance.end_time = branch['end_time']
-        instance.time_limit = branch['time_limit']
-        for context in branch['events']:
-            time = context.pop( 'time' )
-            instance.events.append( Event( time, context ))
-        match.rounds.append( instance )
+        element = Round( branch['round_id'] )
+        element.start_time = branch['start_time']
+        element.end_time = branch['end_time']
+        element.time_limit = branch['time_limit']
+        element = self._parse_events( data, element )
+        element = self._parse_stats( data, element )
+        element = self._parse_wstats( data, element )
+        match.rounds.append( element )
         return match
 
 
-    def _parse_stat( self, match: Match, data: dict ) -> Match:
+    def _parse_events( self, data: dict, element: Round ) -> Round:
         """
-        Updates and returns a Match object with player stat information.
+        Returns a Round object that contains event data.
 
         Parameters
         ----------
-        match : Match
-            x
         data : dict
-            The data from a valid JSON file.
+            The raw data from a valid JSON file.
+        match: Match
+            The data structure that contains relevant round data.
         """
 
-        branch = data['stats']
+        branch = data['round']['events']
+        for context in branch:
+            time = context.pop( 'time' )
+            element.events.append( Event( time, context ) )
+        return element
+
+
+    def _parse_stats( self, data: dict, element: Round ) -> Round:
+        """
+        Returns a Round object that contains stats data.
+
+        Parameters
+        ----------
+        data : dict
+            The raw data from a valid JSON file.
+        element: Round
+            The data structure that contains relevant round data.
+        """
+
+        branch = data['round']['stats']
         headers = list( info.DEFAULT_HEADERS.keys())
         headers.extend( info.CATEGORY_HEADERS )
         body = []
@@ -105,24 +120,24 @@ class Parser( object ):
             stat_line.append( branch[guid]['end_time'] )
             stat_line.extend( list( branch[guid]['categories'].values()))
             body.append( stat_line )
-            # break
-        match.stats.append( Table( headers, body ))
-        return match
+            break ####
+        element.stats = Table( headers, body )
+        return element
 
 
-    def _parse_wstat( self, match: Match, data: dict ) -> Match:
+    def _parse_wstats( self, data: dict, element: Round ) -> Round:
         """
-        Updates and returns a Match object with player wstat information.
+        Returns a Round object that contains weapon stats data.
 
         Parameters
         ----------
-        match : Match
-            x
         data : dict
-            The data from a valid JSON file.
+            The raw data from a valid JSON file.
+        element: Round
+            The data structure that contains relevant round data.
         """
 
-        branch = data['wstats']
+        branch = data['round']['wstats']
         headers = list( info.DEFAULT_HEADERS )[0:2]
         headers.extend( info.WSTAT_HEADERS )
         body = []
@@ -131,135 +146,70 @@ class Parser( object ):
                 stat_line = [guid]
                 stat_line.extend( list( wstat.values()))
                 body.append( stat_line )
-            # break
-        match.wstats.append( Table( headers, body ))
-        return match
+            break ####
+        element.wstats = Table( headers, body )
+        return element
 
-    
+
     # Input Validation
 
-    def _validate_path( self, file_path: str ) -> dict:
+    def _validate_paths( self, file_paths: list ) -> list:
         """
-        Validates the path of a file and returns the data if it is in a supported format.
+        Returns a list of extracted data if the data is in a supported format.
 
         Parameters
         ----------
-        file_path : str
-            The relative path of a JSON file.
+        file_paths : list
+            The relative paths of the server files to be validated.
         """
 
-        assert 0 < len( file_path ) < 256
-        try:
-            with open( file_path, "r" ) as data_file:
-                data = loads( data_file.read())
-                schema = data['schema']
-                assert schema in SUPPORTED_SCHEMAS
-        except FileNotFoundError:
-            pass
-            exit( False )
-        return data
+        valid_data = []
+        for file_path in file_paths:
+            try:
+                with open( file_path, "r" ) as data_file:
+                    data = loads( data_file.read())
+                    schema = data['schema']
+                    assert schema in info.SUPPORTED_SCHEMAS
+                    valid_data.append( data )
+            except FileNotFoundError:
+                pass
+                # log error
+        return valid_data
 
 
     # Public Methods
 
     def get_pairs( self, directory: str = "data" ) -> list:
         """
-        Returns a list of JSON file paths
+        Returns a list of JSON file pairs, sorted by match_id and round_id.
+
+        Parameters
+        ----------
+        directory : str
+            x
         """
 
-        pairs = []
-        files = sorted( glob( f"{directory}/*.{SUPPORTED_FORMAT}" ))
-        for file in reversed( files ):
-            match_id = search( r"\d{10}", file )
-            if not match_id:
-                files.pop( files.index( file ))
-        i = -1
-        previous_id = None
+        pairs = {}
+        files = sorted( glob( f"{directory}/*.{info.SUPPORTED_FORMAT}" ))
         for file in files:
             matcher = search( r"\d{10}", file )
             if matcher:
-                current_id = matcher.group( 0 )
-                if current_id == previous_id:
-                    pairs[i].append( file )
+                match_id = matcher.group( 0 )
+                if match_id in pairs:
+                    pairs[match_id].append( file )
                 else:
-                    i += 1
-                    pairs.insert( i, [file])
-
-            previous_id = current_id
-        return pairs
+                    pairs[match_id] = [file]
+        return list( pairs.values())
 
 
     def parse( self, file_paths: list ) -> Match:
         """
-        x
+        Parses a pair of valid JSON files and returns a Match object that contains all relevant data.
         """
 
-        valid_data = []
-        for file_path in file_paths:
-            valid_data.append( self._validate_path( file_path ))
-        match = self._parse_match( valid_data[0] )
+        match = None
+        valid_data = self._validate_paths( file_paths )
         for data in valid_data:
-            match = self._parse_round( match, data )
-            match = self._parse_stat( match, data )
-            match = self._parse_wstat( match, data )
-        return match
-
-
-    def parse_match( self, file_path: str ) -> Match:
-        """
-        x
-        """
-        
-        data = self._validate_path( file_path )
-        match = self._parse_match( data )
-        match.winner = data['summary']['winner']
-        return match
-
-
-    def parse_round( self, file_paths: list ) -> Match:
-        """
-        x
-        """
-        
-        valid_data = []
-        for file_path in file_paths:
-            valid_data.append( self._validate_path( file_path ))
-        match = self._parse_match( valid_data[0] )
-        for data in valid_data:
-            match = self._parse_round( match, data )
-        if not match.winner:
-            match.winner = valid_data[-1]['summary']['winner']
-        return match
-
-
-    def parse_stat( self, file_paths: list ) -> Match:
-        """
-        x
-        """
-        
-
-        valid_data = []
-        for file_path in file_paths:
-            valid_data.append( self._validate_path( file_path ))
-        match = self._parse_match( valid_data[0] )
-        for data in valid_data:
-            match = self._parse_stat( match, data )
-        if not match.winner:
-            match.winner = valid_data[-1]['summary']['winner']
-        return match
-
-
-    def parse_wstat( self, file_paths: list ) -> Match:
-        """
-        x
-        """
-        
-        valid_data = []
-        for file_path in file_paths:
-            valid_data.append( self._validate_path( file_path ))
-        match = self._parse_match( valid_data[0] )
-        for data in valid_data:
-            match = self._parse_wstat( match, data )
-        if not match.winner:
-            match.winner = valid_data[-1]['summary']['winner']
+            match = self._parse_summary( data, match )
+            match = self._parse_round( data, match )
         return match

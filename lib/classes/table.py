@@ -27,8 +27,8 @@ class Table( object ):
             A two dimensional matrix that holds statistical counts for each player in each category.
         """
 
-        assert len( headers ) > 1 # len of default_headers?
-        assert len( body ) > 1 # min number of players
+        assert len( headers ) >= len( info.DEFAULT_HEADERS )
+        #assert len( body ) > 1
         self._headers = headers
         self._body = body
         self._sums = [ 0 for v in self.headers ]
@@ -36,8 +36,7 @@ class Table( object ):
 
 
     def __str__( self ):
-        string = ""
-        string += ",".join( self.headers ) + "\n"
+        string = ",".join( self.headers ) + "\n"
         for row in self.body:
             string += ",".join( str( value ) for value in row ) + "\n"
         string += ",".join( str( value ) for value in self.sums ) 
@@ -47,17 +46,18 @@ class Table( object ):
     # Properties
 
     @property
+    def headers( self ) -> list:
+        return self._headers
+
+
+    @property
     def body( self ) -> list:
         return self._body
+
 
     @body.setter
     def body( self, body ):
         self.body = body
-
-
-    @property
-    def headers( self ) -> list:
-        return self._headers
 
 
     @property
@@ -94,40 +94,40 @@ class Table( object ):
 
     def _summarize( self, start, limit ):
         """
-        Populates the sum of each column in a table within the given range.
-
-        Parameters
-        ----------
-        start : int
-            The first index in the range.
-        limit : int
-            The last index in the range (exclusive).
+        x
         """
 
-        self._validate_index( start )
-        assert start < limit <= self.columns
         for i in range( start, limit ):
             if self.headers[i] not in info.DEFAULT_HEADERS:
                 self.sums[i] = self.column_sum( i )
             else:
-                self.sums[i] = None
+                self.sums[i] = info.PLACEHOLDER
 
 
     # Input Validation
 
-    def _validate_index( self, index: str ):
+    def _validate_index( self, index: int = None ):
         """
         x
         """
 
-        assert 0 <= index < self.columns
+        if index:
+            assert 0 <= index < self.columns
 
-
+    
     # Public Methods
+
+    def column_data( self, column: int, select: int = None, value = None ) -> list:
+        """
+        x
+        """
+
+        return [ row[column] for row in self.body if ( not select or row[select] == value )]
+
 
     def column_avg( self, column: int, select: int = None, value = None ) -> int:
         """
-        Returns the sum of the values in a column of a table.
+        Returns the average of the values in a column of a table.
 
         Parameters
         ----------
@@ -140,33 +140,12 @@ class Table( object ):
         """
 
         self._validate_index( column )
-        if select:
-            self._validate_index( select )
+        self._validate_index( select )
         data = self.column_data( column, select, value )
         if all( isinstance( v, ( float, int )) for v in data ):
             return sum( data ) / len( data )
         else:
-            return None
-    
-
-    def column_data( self, column: int, select: int = None, value = None ) -> list:
-        """
-        Returns a list that contains the values in a column of a table.
-
-        Parameters
-        ----------
-        column : int
-            The column to look for data in.
-        select : int
-            The column to filter results by.
-        value : object
-            The value to filter results by.
-        """
-
-        if select:
-            return [ row[column] for row in self.body if row[select] == value ]
-        else:
-            return [ row[column] for row in self.body ]
+            return info.PLACEHOLDER
 
 
     def column_sum( self, column: int, select: int = None, value = None ) -> int:
@@ -183,13 +162,15 @@ class Table( object ):
             The value to filter results by.
         """
 
+        self._validate_index( column )
+        self._validate_index( select )
         data = self.column_data( column, select, value )
         if all( isinstance( v, ( float, int )) for v in data ):
             return sum( data )
         else:
-            return None
+            return info.PLACEHOLDER
 
-            
+
     def row_data( self, column1: int, value1: object, column2: int = None, value2: object = None ) -> list:
         """
         Returns a row from the table that matches the specified guid and/or weapon.
