@@ -29,11 +29,7 @@ class Team( object ):
     
 
     def __str__( self ):
-        string = info.LINE_BREAK * 2
-        string += f"name: {self._name}\n"
-        for player in self.players:
-            string += f"{player}\n"
-        return string
+        pass
 
 
     def __lt__( self, other: object ):

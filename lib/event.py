@@ -27,7 +27,7 @@ class Event( object ):
 
 
     def __str__( self ):
-        return f"time: {self.time} => {self.context}"
+        pass
 
 
     def __lt__( self, other: object ):

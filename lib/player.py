@@ -27,15 +27,7 @@ class Player( object ):
 
 
     def __str__( self ):
-        string = info.LINE_BREAK
-        string += f"guid: {self.guid}\n"
-        if self.stats:
-            string += f"stats:\n"
-            string += f"{self.stats}\n"
-        if self.wstats:
-            string += f"wstats:\n"
-            string += f"{self.wstats}\n"
-        return string
+        pass
 
 
     def __lt__( self, other: object ):

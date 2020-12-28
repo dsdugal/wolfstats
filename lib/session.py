@@ -23,12 +23,7 @@ class Session( object ):
 
 
     def __str__( self ):
-        string = "\n"
-        string += f"session_id: {self._session_id}\n"
-        string += f"matches:\n"
-        for each in self.matches:
-            string += f"{each}\n"
-        return string
+        pass
 
 
     @property

@@ -33,16 +33,7 @@ class Round( object ):
 
 
     def __str__( self ):
-        string = ""
-        if self.teams:
-            string += f"teams:\n"
-            for each in self.teams:
-                string += f"{each}\n"
-        if self.events:
-            string += f"events:\n"
-            for each in self.events:
-                string += f"{each}\n"
-        return string
+        pass
 
 
     def __lt__( self, other: object ):

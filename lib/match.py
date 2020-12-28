@@ -41,11 +41,7 @@ class Match( object ):
 
 
     def __str__( self ):
-        string = "\n"
-        string += f"match_id: {self._match_id}\n"
-        for each in self._rounds:
-            string += f"round: {each}\n"
-        return string
+        pass
 
 
     # Properties

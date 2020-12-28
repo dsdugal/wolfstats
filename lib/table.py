@@ -34,12 +34,7 @@ class Table( object ):
 
 
     def __str__( self ):
-        string = ""
-        string += ",".join( self.headers ) + "\n"
-        for row in self.body:
-            string += ",".join( str( v ) for v in row ) + "\n"
-        string += ",".join( str( v ) for v in self.sums ) 
-        return string
+        pass
 
 
     # Properties
