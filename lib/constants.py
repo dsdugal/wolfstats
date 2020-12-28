@@ -2,9 +2,33 @@
 x
 """
 
-# Constants
+RELEASE_TIME = 1609459200 # ???
 
-CATEGORY_HEADERS = [
+SUPPORTED_FORMAT = "json"
+
+SUPPORTED_SCHEMAS = [
+    0.1
+]
+
+DEFAULT_GAMETYPE = "Unknown"
+
+EVENT_GROUPS = []
+
+EVENT_LABELS = []
+
+GAMETYPES = {
+    5: "objective",
+    6: "stopwatch"
+}
+
+DEFAULT_HEADERS = [
+    "guid",
+    "alias",
+    "start_time",
+    "end_time"
+]
+
+STAT_HEADERS = [
     "ammo_given",
     "damage_given",
     "damage_received",
@@ -29,36 +53,24 @@ CATEGORY_HEADERS = [
     "team_kills"
 ]
 
-DEFAULT_HEADERS = {
-    "guid": 0,
-    "team": 1,
-    "start_time": 2,
-    "end_time": 3
-}
+WSTAT_HEADERS = [
+    "kills",
+    "deaths",
+    "suicides",
+    "damage",
+    "damage_received",
+    "team_kills",
+    "team_deaths",
+    "team_damage_given",
+    "team_damage_received",
+    "shots",
+    "hits",
+    "headshots",
+]
 
-EVENT_GROUPS = []
-
-EVENT_LABELS = []
-
-GAMETYPES = {
-    5: "objective",
-    6: "stopwatch"
-}
+LINE_BREAK = "-" * 225 + "\n"
 
 PLACEHOLDER = "-"
-LINE_BREAK = PLACEHOLDER * 225
-
-RELEASE_TIME = 1609459200 # ???
-
-ROUNDS = {
-    1: "A",
-    2: "B"
-}
-
-SUPPORTED_FORMAT = "json"
-SUPPORTED_SCHEMAS = [
-    0.1
-]
 
 TEAMS = {
     1: "allies",
@@ -82,21 +94,4 @@ WEAPONS = [
     "sten",
     "thompson",
     "venom",
-]
-
-WSTAT_HEADERS = [
-    "kills",
-    "deaths",
-    "suicides",
-    "damage",
-    "damage_received",
-    "team_kills",
-    "team_deaths"
-    "team_damage_given"
-    "team_damage_received"
-    "shots",
-    "hits",
-    "headshots",
-    "accuracy",
-    "headshot_accuracy"
 ]

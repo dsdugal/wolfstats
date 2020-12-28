@@ -17,12 +17,11 @@ class Event( object ):
         Parameters
         ----------
         time : int
-            The time that this event occurred.
+            The time that the event occurred.
         context : dict
-            The details associated with this event.
+            The details associated with the event.
         """
 
-        assert 0 < time
         self._time = time
         self._context = context
 
@@ -69,5 +68,4 @@ class Event( object ):
 
     @context.setter
     def context( self, context: dict ):
-        assert context
         self._context = context

@@ -4,8 +4,8 @@ x
 
 # Local Imports
 
-from lib.classes.match import Match
-from lib.parsers.parser import Parser
+from lib.match import Match
+from lib.util.parser import Parser
 
 
 # Driver

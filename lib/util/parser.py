@@ -11,10 +11,13 @@ from re import search
 
 # Local Imports
 
-from lib.classes.event import Event
-from lib.classes.match import Match
-from lib.classes.round import Round
-from lib.classes.table import Table
+from lib.event import Event
+from lib.match import Match
+from lib.player import Player
+from lib.round import Round
+from lib.session import Session
+from lib.table import Table
+from lib.team import Team
 import lib.constants as info
 
 
@@ -110,8 +113,7 @@ class Parser( object ):
         """
 
         branch = data['round']['stats']
-        headers = list( info.DEFAULT_HEADERS.keys())
-        headers.extend( info.CATEGORY_HEADERS )
+        headers = info.DEFAULT_HEADERS + info.STAT_HEADERS
         body = []
         for guid in branch:
             stat_line = [guid]
@@ -138,8 +140,7 @@ class Parser( object ):
         """
 
         branch = data['round']['wstats']
-        headers = list( info.DEFAULT_HEADERS )[0:2]
-        headers.extend( info.WSTAT_HEADERS )
+        headers = info.DEFAULT_HEADERS + info.WSTAT_HEADERS
         body = []
         for guid in branch:
             for wstat in branch[guid]:
