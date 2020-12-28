@@ -287,16 +287,14 @@ class Table( object ):
         return copy
 
 
-    def subtract( self, other: Table ):
+    def subtract( self, other ):
         """
-        Subtracts the data for the previous round from the table for the current round.
+        Subtracts the data for another round from the table for the current data.
 
         Parameters
         ----------
-        current : Table
-            The data for the current round.
-        previous : Table
-            The data for the previous round.
+        other : Table
+            The data for the other round.
         """
 
         for i in range( self.rows ):
