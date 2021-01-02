@@ -8,9 +8,10 @@ x
 # Local Imports
 
 
-class Helper( object ):
+class APM( object ):
     """
     x
     """
 
-    pass
+    def rank( self, matches: list ):
+        pass

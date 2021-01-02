@@ -2,38 +2,36 @@
 x
 """
 
-# Local Imports
-
-from lib.team import Team
-from lib.table import Table
-from lib.util.helper import Helper
-import lib.constants as info
-
 
 class Round( object ):
     """
     x
     """
 
-    def __init__( self, round_id: int ):
+    def __init__( self, session_id: str, match_id: str, round_id: str, start_time: int, end_time: int, time_limit: int, events: list, teams: list ):
         """
         Parameters
         ---------
-        round_id : int
-            The sequence identifier for the round.
+        session_id : str
+            x
+        match_id : str
+            x
+        round_id : str
+            x
+        events : list
+            x
+        teams : list
+            x
         """
 
+        self._session_id = session_id
+        self._match_id = match_id
         self._round_id = round_id
-        self._start_time = None
-        self._end_time = None
-        self._time_limit = None
-        self._teams = []
+        self._start_time = start_time
+        self._end_time = end_time
+        self._time_limit = time_limit
         self._events = []
-        self._helper = Helper()
-
-
-    def __str__( self ):
-        pass
+        self._teams = []
 
 
     def __lt__( self, other: object ):
@@ -63,6 +61,16 @@ class Round( object ):
     # Properties
 
     @property
+    def session_id( self ) -> int:
+        return self._match_id
+
+
+    @property
+    def match_id( self ) -> int:
+        return self._match_id
+
+
+    @property
     def round_id( self ) -> int:
         return self._round_id
 
@@ -72,29 +80,14 @@ class Round( object ):
         return self._start_time
 
 
-    @start_time.setter
-    def start_time( self, start_time : int ):
-        self._start_time = start_time
-
-
     @property
     def end_time( self ) -> int:
         return self._end_time
 
 
-    @end_time.setter
-    def end_time( self, end_time : int ):
-        self._end_time = end_time
-
-
     @property
     def time_limit( self ) -> int:
         return self._time_limit
-
-
-    @time_limit.setter
-    def time_limit( self, time_limit : int ):
-        self._time_limit = time_limit
 
 
     @property
@@ -114,69 +107,4 @@ class Round( object ):
 
     @teams.setter
     def teams( self, teams: list ):
-        self._teams = sorted( teams )
-
-
-    # Derivatives
-
-    @property
-    def inactive_periods( self ):
-        """
-        x
-        """
-
-        return self._helper.inactive_periods( self.events )
-
-
-    @property
-    def inactive_time( self ):
-        """
-        x
-        """
-
-        return self._helper.inactive_time( self.events )
-
-
-    @property
-    def length( self ):
-        """
-        x
-        """
-        
-        return self._helper.length( self.events )
-
-
-    @property
-    def players( self ):
-        """
-        x
-        """
-
-        return self._helper.get_players( self.teams )
-
-
-    @property
-    def size( self ):
-        """
-        x
-        """
-
-        return len( self._helper.get_players( self.teams ))
-
-
-    @property
-    def stats( self ):
-        """
-        x
-        """
-
-        return self._helper.get_stats( self.teams )
-    
-
-    @property
-    def wstats( self ):
-        """
-        x
-        """
-
-        return self._helper.get_wstats( self.teams )
+        self._teams = teams

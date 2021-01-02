@@ -2,29 +2,57 @@
 x
 """
 
-# Local Imports
-
-from lib.match import Match
-from lib.table import Table
-from lib.util.helper import Helper
-
 
 class Session( object ):
     """
     x
     """
 
-    def __init__( self ):
-        self._session_id = None # this needs to be unique
-        self._start_time = None
-        self._end_time = None
-        self._matches = []
-        self._helper = Helper()
+    def __init__( self, session_id: str, credited: int, ranked: int, matches: list ):
+        """
+        Parameters
+        ----------
+        session_id : str
+            x
+        credited: int
+            x
+        ranked: int
+            x
+        matches: list
+            x
+        """
+
+        self._session_id = session_id
+        self._credited = credited
+        self._ranked = ranked
+        self._matches = matches
 
 
-    def __str__( self ):
-        pass
+    def __lt__( self, other: object ):
+        return self.session_id < other.session_id
 
+
+    def __le__( self, other: object ):
+        return self.session_id <= other.session_id
+
+
+    def __eq__( self, other: object ):
+        return self.session_id == other.session_id
+
+
+    def __ne__( self, other: object ):
+        return self.session_id != other.session_id
+
+
+    def __ge__( self, other: object ):
+        return self.session_id >= other.session_id
+
+
+    def __gt__( self, other: object ):
+        return self.session_id > other.session_id
+
+
+    # Properties
 
     @property
     def session_id( self ) -> str:
@@ -32,88 +60,25 @@ class Session( object ):
 
 
     @property
+    def credited( self ) -> int:
+        return self._session_id
+
+
+    @credited.setter
+    def credited( self, credited: int ):
+        self._credited = credited
+
+
+    @property
+    def ranked( self ) -> str:
+        return self._ranked
+
+
+    @ranked.setter
+    def ranked( self, ranked: int ):
+        self._ranked = ranked
+
+
+    @property
     def matches( self ) -> list:
         return self._matches
-
-
-    @matches.setter
-    def matches( self, matches: list ):
-        self._matches = matches
-
-    
-    # Derivatives
-
-    @property
-    def events( self ):
-        """
-        x
-        """
-
-        return self._helper.get_events( self.matches )
-
-
-    @property
-    def inactive_periods( self ):
-        """
-        x
-        """
-
-        return self._helper.inactive_periods( self.events )
-
-
-    @property
-    def inactive_time( self ):
-        """
-        x
-        """
-
-        return self._helper.inactive_time( self.events )
-
-
-    @property
-    def length( self ):
-        """
-        x
-        """
-        
-        return self._helper.length( self.events )
-
-
-    @property
-    def players( self ):
-        """
-        x
-        """
-
-        return list( dict.fromkeys( self._helper.get_players( self.matches )))
-
-
-    @property
-    def size( self ):
-        """
-        x
-        """
-
-        return len( self._helper.get_players( self.matches ))
-
-
-    @property
-    def stats( self ):
-        """
-        x
-        """
-
-        stats = self._helper.get_stats( self.matches )
-        stats.combine()
-        return stats
-    
-
-    @property
-    def wstats( self ):
-        """
-        x
-        """
-
-        wstats = self._helper.get_wstats( self.matches )
-        wstats.combine()
-        return wstats

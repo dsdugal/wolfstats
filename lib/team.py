@@ -2,34 +2,36 @@
 x
 """
 
-# Local Imports
-
-from lib.player import Player
-from lib.table import Table
-from lib.util.helper import Helper
-import lib.constants as info
-
 
 class Team( object ):
     """
     x
     """
 
-    def __init__( self, name: str ):
+    def __init__( self, session_id: str, match_id: str, round_id: str, name: str, captain: str, players: list ):
         """
         Parameters
         ----------
+        session_id : str
+            x
+        match_id : str
+            x
+        round_id : str
+            x
         name : str
-            The proper name of the team.
+            x
+        captain : str
+            x
+        players : list
+            x
         """
 
+        self._session_id = session_id
+        self._match_id = match_id
+        self._round_id = round_id
         self._name = name
-        self._players = []
-        self._helper = Helper()
-    
-
-    def __str__( self ):
-        pass
+        self._captain = captain
+        self._players = players
 
 
     def __lt__( self, other: object ):
@@ -59,44 +61,30 @@ class Team( object ):
     # Properties
 
     @property
+    def session_id( self ) -> str:
+        return self._match_id
+
+
+    @property
+    def match_id( self ) -> str:
+        return self._match_id
+
+
+    @property
+    def round_id( self ) -> str:
+        return self._round_id
+
+
+    @property
     def name( self ) -> str:
         return self._name
     
 
     @property
+    def captain( self ) -> str:
+        return self._captain
+
+
+    @property
     def players( self ) -> list:
         return self._players
-
-
-    @players.setter
-    def players( self, players: list ):
-        self._players = sorted( players )
-
-
-    # Derivatives
-
-    @property
-    def size( self ) -> int:
-        """
-        x
-        """
-
-        return len( self.players )
-
-
-    @property
-    def stats( self ) -> Table:
-        """
-        x
-        """
-
-        return self._helper.get_stats( self.players )
-
-
-    @property
-    def wstats( self ) -> Table:
-        """
-        x
-        """
-
-        return self._helper.get_wstats( self.players )

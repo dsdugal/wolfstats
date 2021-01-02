@@ -1,0 +1,21 @@
+{
+    "session_id": null,
+    "match_id": null,
+    "round_id": null,
+    "guid": null,
+    "weapon": null,
+    "data": {
+        "kills": null,
+        "deaths": null,
+        "suicides": null,
+        "damage_given": null,
+        "damage_received": null,
+        "team_kills": null,
+        "team_deaths": null,
+        "team_damage_given": null,
+        "team_damage_received": null,
+        "shots": null,
+        "hits": null,
+        "headshots": null
+    }
+}

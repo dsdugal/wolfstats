@@ -5,7 +5,6 @@ x
 # Local Imports
 
 from lib.table import Table
-import lib.constants as info
 
 
 class Player( object ):
@@ -13,21 +12,24 @@ class Player( object ):
     x
     """
 
-    def __init__( self, guid: str ):
+    def __init__( self, guid: str, rank: int, stats: Table, wstats: Table ):
         """
         Parameters
         ----------
         guid : str
-            The unique identifier for the player.
+            x
+        rank : int
+            x
+        stats : Table
+            x
+        stats : Table
+            x
         """
 
         self._guid = guid
-        self._stats = None
-        self._wstats = None
-
-
-    def __str__( self ):
-        pass
+        self._rank = rank
+        self._stats = stats
+        self._wstats = wstats
 
 
     def __lt__( self, other: object ):
@@ -62,20 +64,15 @@ class Player( object ):
 
 
     @property
+    def rank( self ) -> int:
+        return self._rank
+
+
+    @property
     def stats( self ) -> Table:
         return self._stats
-
-
-    @stats.setter
-    def stats( self, stats: Table ):
-        self._stats = stats
 
 
     @property
     def wstats( self ) -> Table:
         return self._wstats
-
-
-    @wstats.setter
-    def wstats( self, wstats: Table ):
-        self._wstats = wstats

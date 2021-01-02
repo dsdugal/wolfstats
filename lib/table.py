@@ -33,10 +33,6 @@ class Table( object ):
         self._summarize( 0, self.columns - 1 )
 
 
-    def __str__( self ):
-        pass
-
-
     # Properties
 
     @property

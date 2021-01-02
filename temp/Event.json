@@ -1,0 +1,11 @@
+{
+    "session_id": null,
+    "match_id": null,
+    "round_id": null,
+    "time": null,
+    "group": null,
+    "context": {
+        "label": null,
+        "agent": null
+    }
+}

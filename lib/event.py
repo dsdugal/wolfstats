@@ -2,32 +2,36 @@
 x
 """
 
-# Local Imports
-
-import lib.constants as info
-
 
 class Event( object ):
     """
     x
     """
 
-    def __init__( self, time: int, context: dict ):
+    def __init__( self, session_id: str, match_id: str, round_id: str, time: int, group: str, context: dict ):
         """
         Parameters
         ----------
+        session_id : str
+            x
+        match_id : str
+            x
+        round_id : str
+            x
         time : int
-            The time that the event occurred.
+            x
+        group : str
+            x
         context : dict
-            The details associated with the event.
+            x
         """
 
+        self._session_id = session_id
+        self._match_id = match_id
+        self._round_id = round_id
         self._time = time
+        self._group = group
         self._context = context
-
-
-    def __str__( self ):
-        pass
 
 
     def __lt__( self, other: object ):
@@ -57,15 +61,30 @@ class Event( object ):
     # Properties
 
     @property
+    def session_id( self ) -> str:
+        return self._match_id
+
+
+    @property
+    def match_id( self ) -> str:
+        return self._match_id
+
+
+    @property
+    def round_id( self ) -> str:
+        return self._round_id
+
+
+    @property
     def time( self ) -> int:
+        return self._time
+
+
+    @property
+    def group( self ) -> str:
         return self._time
 
 
     @property
     def context( self ) -> dict:
         return self._context
-
-
-    @context.setter
-    def context( self, context: dict ):
-        self._context = context
