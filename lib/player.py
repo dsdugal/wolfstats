@@ -12,7 +12,7 @@ class Player( object ):
     x
     """
 
-    def __init__( self, guid: str, rank: int, stats: Table, wstats: Table ):
+    def __init__( self, guid: str, rating: int, stats: Table, wstats: Table ):
         """
         Parameters
         ----------
@@ -27,33 +27,33 @@ class Player( object ):
         """
 
         self._guid = guid
-        self._rank = rank
+        self._rating = rating
         self._stats = stats
         self._wstats = wstats
 
 
     def __lt__( self, other: object ):
-        return self.guid < other.guid
+        return self.rating < other.rating
 
 
     def __le__( self, other: object ):
-        return self.guid <= other.guid
+        return self.rating <= other.rating
 
 
     def __eq__( self, other: object ):
-        return self.guid == other.guid
+        return self.rating == other.rating
 
 
     def __ne__( self, other: object ):
-        return self.guid != other.guid
+        return self.rating != other.rating
 
 
     def __ge__( self, other: object ):
-        return self.guid >= other.guid
+        return self.rating >= other.rating
 
 
     def __gt__( self, other: object ):
-        return self.guid > other.guid
+        return self.rating > other.rating
 
 
     # Properties
@@ -64,8 +64,8 @@ class Player( object ):
 
 
     @property
-    def rank( self ) -> int:
-        return self._rank
+    def rating( self ) -> int:
+        return self._rating
 
 
     @property
