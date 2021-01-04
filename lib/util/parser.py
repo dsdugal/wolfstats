@@ -31,7 +31,7 @@ class Parser( object ):
         return sessions
 
 
-    def get_ranked( self ) -> list:
+    def get_rated( self ) -> list:
         """
         x
         """
@@ -41,7 +41,7 @@ class Parser( object ):
         return sessions
 
 
-    def get_unranked( self ) -> list:
+    def get_unrated( self ) -> list:
         """
         x
         """

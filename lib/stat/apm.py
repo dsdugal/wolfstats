@@ -13,5 +13,5 @@ class APM( object ):
     x
     """
 
-    def rank( self, matches: list ):
+    def rate( self, sessions: list ):
         pass
