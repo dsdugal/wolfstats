@@ -1,0 +1,22 @@
+{
+    "session_id": null,
+    "match_id": null,
+    "start_time": null,
+    "end_time": null,
+    "context": {
+        "host_address": [],
+        "host_port": null,
+        "mod_name": null,
+        "mod_version": null,
+        "mod_config": null,
+        "gametype": null,
+        "mapname": null,
+        "allies_cycle": null,
+        "axis_cycle": null,
+        "winner": null
+    },
+    "rounds": [
+        null,
+        null
+    ]
+}
