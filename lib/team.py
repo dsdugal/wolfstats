@@ -13,17 +13,17 @@ class Team( object ):
         Parameters
         ----------
         session_id : str
-            x
+            The unique identifier for the session that the team played in.
         match_id : str
-            x
+            The unique identifier for the match that the team played in.
         round_id : str
-            x
+            The unique identifier for the round that the team played in.
         name : str
-            x
+            The proper name of a team.
         captain : str
-            x
+            The unique identifier for the player that served as the captain of the team.
         players : list
-            x
+            A list of the unique identifiers for the players of the team.
         """
 
         self._session_id = session_id
